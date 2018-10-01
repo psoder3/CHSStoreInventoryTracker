@@ -26,7 +26,8 @@
         <activity android:name=".ReturnActivity" />
         <activity android:name=".RestockActivity" />
         <activity android:name=".AddProductActivity" />
-        <activity android:name=".ModifySalePriceActivity"></activity>
+        <activity android:name=".ModifySalePriceActivity" />
+        <activity android:name=".ViewInventoryActivity"></activity>
     </application>
 
 </manifest>

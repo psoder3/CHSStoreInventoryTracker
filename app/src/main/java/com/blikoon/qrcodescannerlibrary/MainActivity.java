@@ -21,8 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -38,11 +36,14 @@ public class MainActivity extends Activity {
     private Button button_view_current_inventory;
 
 
-    private static final int REQUEST_CODE_SELL = 101;
-    private static final int REQUEST_CODE_RETURN = 102;
-    private static final int REQUEST_CODE_RESTOCK = 103;
-    private static final int REQUEST_CODE_ADD_PRODUCT = 104;
-    private static final int REQUEST_CODE_MODIFY_SALE_PRICE = 105;
+    public static final int REQUEST_CODE_SELL = 101;
+    public static final int REQUEST_CODE_RETURN = 102;
+    public static final int REQUEST_CODE_RESTOCK = 103;
+    public static final int REQUEST_CODE_ADD_PRODUCT = 104;
+    public static final int REQUEST_CODE_MODIFY_SALE_PRICE = 105;
+    public static final int REQUEST_CODE_VIEW_CURRENT_PRICES = 106;
+    public static final int REQUEST_CODE_VIEW_CURRENT_INVENTORY = 107;
+
 
 
     private final String LOGTAG = "QRCScanner-MainActivity";
@@ -106,8 +107,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Show a price view activity
-                //Intent i = new Intent(MainActivity.this,QrCodeActivity.class);
-                //startActivityForResult( i,REQUEST_CODE_MODIFY_SALE_PRICE);
+                Intent i = new Intent(MainActivity.this,ViewInventoryActivity.class);
+                i.putExtra("requestCode",REQUEST_CODE_VIEW_CURRENT_PRICES);
+                startActivityForResult( i,REQUEST_CODE_VIEW_CURRENT_PRICES);
             }
         });
 
@@ -116,8 +118,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Show an inventory view activity
-                //Intent i = new Intent(MainActivity.this,QrCodeActivity.class);
-                //startActivityForResult( i,REQUEST_CODE_MODIFY_SALE_PRICE);
+                Intent i = new Intent(MainActivity.this,ViewInventoryActivity.class);
+                i.putExtra("requestCode",REQUEST_CODE_VIEW_CURRENT_INVENTORY);
+                startActivityForResult( i,REQUEST_CODE_VIEW_CURRENT_INVENTORY);
             }
         });
     }
@@ -196,7 +199,6 @@ public class MainActivity extends Activity {
                 Intent i = new Intent(MainActivity.this,SellActivity.class);
                 i.putExtra("barcodeValue", barcode);
                 startActivityForResult( i,REQUEST_CODE_SELL);
-
             }
             else if (requestCode == REQUEST_CODE_RETURN)
             {
@@ -223,6 +225,7 @@ public class MainActivity extends Activity {
         }
 
     }
+
 
 
     public void sendGet(final String barcode, final int requestCode)
