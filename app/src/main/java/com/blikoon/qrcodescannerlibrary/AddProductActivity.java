@@ -1,6 +1,8 @@
 package com.blikoon.qrcodescannerlibrary;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -62,7 +64,7 @@ public class AddProductActivity extends Activity {
                 o.salePrice = Double.parseDouble(salePriceInput.getText().toString());
                 o.quantity = number_picker.getValue();
                 String urlAddress = "http://104.236.169.62:80/schoolStore/addProduct";
-                MainActivity.sendPost(urlAddress,o);
+                MainActivity.sendPost(urlAddress, o);
                 finish();
             }
         });
@@ -73,5 +75,6 @@ public class AddProductActivity extends Activity {
                 finish();
             }
         });
+
     }
 }

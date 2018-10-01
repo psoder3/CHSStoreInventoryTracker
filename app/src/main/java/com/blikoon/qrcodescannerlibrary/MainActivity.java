@@ -186,15 +186,46 @@ public class MainActivity extends Activity {
         */
         if(requestCode == REQUEST_CODE_ADD_PRODUCT)
         {
-            Intent i = new Intent(MainActivity.this,AddProductActivity.class);
-            i.putExtra("barcodeValue", result);
-            startActivityForResult( i,REQUEST_CODE_ADD_PRODUCT);
+            String[] args = result.split(" - ");
+
+            if (args.length == 3 && isNumber(args[2])) {
+                Intent i = new Intent(MainActivity.this, AddProductActivity.class);
+                i.putExtra("barcodeValue", result);
+                startActivityForResult(i, REQUEST_CODE_ADD_PRODUCT);
+            }
+            else
+            {
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Error - Incorrect Format");
+                alertDialog.setMessage("The QR/barcode format must be: [product name] - [size] - [price]. " +
+                        "Also be sure the product name does not include a lone dash ( - ) and the price is just a number.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
         }
         else
         {
             sendGet(result, requestCode);
         }
 
+    }
+
+    public boolean isNumber(String text)
+    {
+        try {
+            Double.parseDouble(text);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
     }
 
     public void continueAfterSuccessfulResponse(JSONObject jsonObj, int requestCode)
