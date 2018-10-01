@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
     private Button button_modify_sale_price;
     private Button button_view_current_prices;
     private Button button_view_current_inventory;
+    private Button button_exit;
 
 
     public static final int REQUEST_CODE_SELL = 101;
@@ -121,6 +122,13 @@ public class MainActivity extends Activity {
                 Intent i = new Intent(MainActivity.this,ViewInventoryActivity.class);
                 i.putExtra("requestCode",REQUEST_CODE_VIEW_CURRENT_INVENTORY);
                 startActivityForResult( i,REQUEST_CODE_VIEW_CURRENT_INVENTORY);
+            }
+        });
+        button_exit = (Button) findViewById(R.id.button_exit);
+        button_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
